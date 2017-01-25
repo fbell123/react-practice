@@ -2,36 +2,45 @@ var ContactForm = React.createClass({
   propTypes: {
     value: React.PropTypes.object.isRequired,
     onChange: React.PropTypes.func.isRequired,
+    onSubmit: React.PropTypes.func.isRequired,
+  },
+
+  onNameInput: function(e) {
+    this.props.onChange(Object.assign({}, this.props.value, {name: e.target.value}))
+  },
+
+  onEmailInput: function(e) {
+    this.props.onChange(Object.assign({}, this.props.value, {email: e.target.value}))
+  },
+
+  onDescriptionInput: function(e) {
+    this.props.onChange(Object.assign({}, this.props.value, {description: e.target.value}))
+  },
+
+  onSubmit: function(e) {
+    e.preventDefault();
+    this.props.onSubmit();
   },
 
   render: function() {
-    var oldContact = this.props.value;
-    var onChange = this.props.onChange;
-    
     return (
-      React.createElement('form', {className: 'ContactForm'},
+      React.createElement('form', {onSubmit: this.onSubmit, className: 'ContactForm', noValidate:true},
         React.createElement('input', {
           type: 'text',
           placeholder: 'Name',
           value: this.props.value.name,
-          onChange: function(e) {
-            onChange(Object.assign({}, oldContact, {name: e.target.value}));
-          },
+          onChange: this.onNameInput,
         }),
         React.createElement('input', {
           type: 'email',
           placeholder: 'Email address',
           value: this.props.value.email,
-          onChange: function(e) {
-            onChange(Object.assign({}, oldContact, {email: e.target.value}));
-          },
+          onChange: this.onEmailInput,
         }),
         React.createElement('textarea', {
           placeholder: 'Description of yourself',
           value: this.props.value.description,
-          onChange: function(e) {
-            onChange(Object.assign({}, oldContact, {description: e.target.value}));
-          },
+          onChange: this.onDescriptionInput,
         }),
         React.createElement('button', {type: 'submit'}, "Add Contact")
       )
