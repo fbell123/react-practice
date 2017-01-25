@@ -9,7 +9,7 @@ var ContactView = React.createClass({
   render: function() {
     var listElements = this.props.contacts
       .filter(function(contact) { return contact.email })
-      .map(function(contact) { return React.createElement(ContactItem, contact) })
+      .map(function(contact) { return React.createElement(ContactItem, contact); });
 
     return (
       React.createElement('div', {className:'ContactView'},
@@ -18,7 +18,7 @@ var ContactView = React.createClass({
         React.createElement(ContactForm, {
           value: this.props.newContact,
           onChange: this.props.onNewContactChange,
-          onSubmit: this.props.onNewContactSubmit
+          onSubmit: this.props.onNewContactSubmit,
         })
       )
     );
