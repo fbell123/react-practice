@@ -1,9 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Router, useRouterHistory, hashHistory } from 'react-router';
+import { createHashHistory } from 'history';
 
-import Detail from './pages/Detail';
 
-ReactDOM.render(
-  <Detail message="This is coming from props!" />,
-  document.getElementById('app')
+import routes from './routes';
+
+ReactDOM.render((
+    <Router history={hashHistory} onUpdate={() => window.scrollTo(0, 0)}>
+      {routes}
+    </Router>
+  ), document.getElementById('app')
 )

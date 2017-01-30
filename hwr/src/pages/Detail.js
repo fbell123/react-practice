@@ -14,7 +14,8 @@ class Detail extends React.Component {
   }
 
   fetchFeed(type) {
-    ajax.get(`https://api.github.com/repos/facebook/react/${type}`).end((error, response) => {
+    const baseURL = 'https://api.github.com/repos/facebook';
+    ajax.get(`${baseURL}/${this.props.params.repo}/${type}`).end((error, response) => {
       if (!error && response) {
         this.setState({ [type]: response.body });
       } else {
@@ -79,9 +80,9 @@ class Detail extends React.Component {
     }
 
     return (<div>
-      <button onClick={this.showCommits.bind(this, 'commits')}>Show Commits</button>
-      <button onClick={this.showForks.bind(this, 'forks')}>Show Forks</button>
-      <button onClick={this.showPulls.bind(this, 'pulls')}>Show Pulls</button>
+      <button onClick={this.selectMode.bind(this, 'commits')}>Show Commits</button>
+      <button onClick={this.selectMode.bind(this, 'forks')}>Show Forks</button>
+      <button onClick={this.selectMode.bind(this, 'pulls')}>Show Pulls</button>
       {content}
     </div>);
   }
