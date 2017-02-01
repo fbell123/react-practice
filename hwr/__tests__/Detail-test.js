@@ -39,14 +39,10 @@ describe('Detail', () => {
       <Detail params={{repo: 'react'}} />
     );
 
-    setTimeout(() => {
-      console.log('In waitFor: ' + rendered.state.forks.length);
-      return rendered.state.forks.length > 0;
-    }, "commit to be set", 2000);
+    const testData = require('./forks.json');
+    rendered.setState({mode: 'forks', forks:testData})
 
-    afterEach(() => {
-      expect(rendered.state.forks.length).toEqual(30);
-    });
+    expect(rendered.state.forks.length).toEqual(30);
   });
 
 })
