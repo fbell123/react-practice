@@ -10,8 +10,18 @@ class Detail extends React.Component {
       mode: 'commits',
       commits: [],
       forks: [],
-      pulls: []
+      pulls: [],
     };
+  }
+
+  componentWillMount() {
+    this.fetchFeed('commits');
+    this.fetchFeed('forks');
+    this.fetchFeed('pulls');
+  }
+
+  saveFeed(type, contents) {
+    this.setState({ [type]: response.body });
   }
 
   fetchFeed(type) {
@@ -28,14 +38,8 @@ class Detail extends React.Component {
     });
   }
 
-  saveFeed(type, contents) {
-    this.setState({ [type]: response.body });
-  }
-
-  componentWillMount() {
-    this.fetchFeed('commits');
-    this.fetchFeed('forks');
-    this.fetchFeed('pulls');
+  selectMode(mode) {
+    this.setState({ mode });
   }
 
   renderCommits() {
@@ -57,8 +61,8 @@ class Detail extends React.Component {
         <Link to={`user/${owner}`}>{owner}</Link> forked to
         <a href={fork.html_url}> {fork.html_url}</a> at {fork.created_at}.
       </p>
-    );
-    })
+      );
+    });
   }
 
   renderPulls() {
@@ -68,12 +72,8 @@ class Detail extends React.Component {
       return (<p key={index} className="github">
         <Link to={`user/${user}`}>{user}</Link>:
         <a href={pull.html_url}> {pull.body}</a>
-      </p>)
-    })
-  }
-
-  selectMode(mode) {
-    this.setState({ mode });
+      </p>);
+    });
   }
 
   render() {
@@ -92,10 +92,14 @@ class Detail extends React.Component {
 
       <button onClick={this.selectMode.bind(this, 'commits')} ref="commits">Show Commits</button>
       <button onClick={this.selectMode.bind(this, 'forks')} ref="forks">Show Forks</button>
-      <button onClick={this.selectMode.bind(this, 'pulls')}ref="pulls">Show Pulls</button>
+      <button onClick={this.selectMode.bind(this, 'pulls')} ref="pulls">Show Pulls</button>
       {content}
     </div>);
   }
 }
+
+Detail.propTypes = {
+  params: React.PropTypes.object,
+};
 
 export default Detail;

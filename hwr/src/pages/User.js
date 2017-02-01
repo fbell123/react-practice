@@ -14,7 +14,7 @@ class User extends React.Component {
   componentWillMount() {
     ajax.get(`https://api.github.com/users/${this.props.params.user}/events`).end((error, response) => {
       if (!error && response) {
-        this.setState({ events: response.body })
+        this.setState({ events: response.body });
       } else {
         console.log('Error fetching user data.', error);
       }
@@ -38,5 +38,9 @@ class User extends React.Component {
     </div>);
   }
 }
+
+User.propTypes = {
+  params: React.PropTypes.object,
+};
 
 export default User;
