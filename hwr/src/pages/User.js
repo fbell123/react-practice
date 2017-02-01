@@ -1,13 +1,13 @@
 import React from 'react';
 import ajax from 'superagent';
-import { IndexLink, Link } from 'react-router';
+import { IndexLink } from 'react-router';
 
 class User extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      events: []
+      events: [],
     };
   }
 
@@ -16,7 +16,7 @@ class User extends React.Component {
       if (!error && response) {
         this.setState({ events: response.body })
       } else {
-        console.log(`Error fetching user data.`, error);
+        console.log('Error fetching user data.', error);
       }
     });
   }
@@ -35,7 +35,7 @@ class User extends React.Component {
           </li>);
         })}
       </ul>
-    </div>); 
+    </div>);
   }
 }
 
